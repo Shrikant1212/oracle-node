@@ -23,5 +23,10 @@ RUN PATH="/usr/local/go/bin:${PATH}" \
 
 FROM alpine:latest
 RUN apk add --update bash 
+# RUN set -x \
+# 	&& adduser -u 82 
 COPY --from=builder /usr/local/bin/razor /usr/local/bin/
+RUN addgroup -S razor && adduser -S razor -G razor
+USER razor
+
 ENTRYPOINT [ "razor" ]
